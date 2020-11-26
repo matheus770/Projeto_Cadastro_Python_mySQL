@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>665</width>
-    <height>627</height>
+    <width>633</width>
+    <height>582</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,8 +22,8 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>611</width>
-      <height>531</height>
+      <width>601</width>
+      <height>411</height>
      </rect>
     </property>
     <property name="maximumSize">
@@ -138,32 +138,9 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>550</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial Black</family>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
-    </property>
-    <property name="text">
-     <string>DELETAR</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>210</x>
-      <y>550</y>
-      <width>101</width>
+      <x>40</x>
+      <y>430</y>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
@@ -181,12 +158,12 @@
      <string>INICIO</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>550</y>
-      <width>101</width>
+      <x>40</x>
+      <y>470</y>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
@@ -201,7 +178,7 @@
      <string notr="true">background-color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
-     <string>ALTERAR</string>
+     <string>EXCLUIR</string>
     </property>
    </widget>
   </widget>
@@ -210,7 +187,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>665</width>
+     <width>633</width>
      <height>21</height>
     </rect>
    </property>

@@ -8,14 +8,14 @@ banco = mysql.connector.connect(
     passwd="",
     database="cadastroprodutos"
 )
-def func_cadastro():
+def cadastro():
    
-    cod = tela_cadastro.lineEdit.text()
-    prod = tela_cadastro.lineEdit_2.text()
-    cto = tela_cadastro.lineEdit_3.text()
-    mrc = tela_cadastro.lineEdit_4.text()
-    quant = tela_cadastro.lineEdit_5.text()
-    pcvd = tela_cadastro.lineEdit_6.text()
+    cod = tela_cadastrar.lineEdit.text()
+    prod = tela_cadastrar.lineEdit_2.text()
+    cto = tela_cadastrar.lineEdit_3.text()
+    mrc = tela_cadastrar.lineEdit_4.text()
+    quant = tela_cadastrar.lineEdit_5.text()
+    pcvd = tela_cadastrar.lineEdit_6.text()
 
     cursor = banco.cursor()
     comando_SQL = "INSERT INTO cadprod (codigo, produto, custo, marca, quantidade, preçovenda) VALUES(%s, %s, %s, %s, %s, %s)"
@@ -23,77 +23,59 @@ def func_cadastro():
     cursor.execute(comando_SQL,dados)
     banco.commit()
     
-    tela_cadastro.lineEdit.setText("")
-    tela_cadastro.lineEdit_2.setText("")
-    tela_cadastro.lineEdit_3.setText("")
-    tela_cadastro.lineEdit_4.setText("")
-    tela_cadastro.lineEdit_5.setText("")
-    tela_cadastro.lineEdit_6.setText("")
+    tela_cadastrar.lineEdit.setText("")
+    tela_cadastrar.lineEdit_2.setText("")
+    tela_cadastrar.lineEdit_3.setText("")
+    tela_cadastrar.lineEdit_4.setText("")
+    tela_cadastrar.lineEdit_5.setText("")
+    tela_cadastrar.lineEdit_6.setText("")
 
-def func_listar():
-    tela_cadastro.close()
-    tela_listar.show()
+def listagem():
+    tela_cadastrar.close()
+    tela_de_listagem.show()
 
     cursor = banco.cursor()
     comando_SQL = "SELECT * FROM cadprod"
     cursor.execute(comando_SQL)
     dados_lidos = cursor.fetchall()
     
-    tela_listar.tableWidget.setRowCount(len(dados_lidos))
-    tela_listar.tableWidget.setRowCount(6)
+    tela_de_listagem.tableWidget.setRowCount(len(dados_lidos))
+    tela_de_listagem.tableWidget.setRowCount(6)
 
     for i in range(0, len(dados_lidos)):
         for j in range(0, 6):
-            tela_listar.tableWidget.setItem(i,j,QtWidgets.QTableWidgetItem(str(dados_lidos[i][j])))
+            tela_de_listagem.tableWidget.setItem(i,j,QtWidgets.QTableWidgetItem(str(dados_lidos[i][j])))
 
-def abrir_del():
-    tela_del.show()
+def voltar_inicio():
+    #Volta a tela inicio
+    tela_de_listagem.close()
+    tela_cadastrar.show()
 
-def abrir_alt():
-    tela_alt.show()
-
-def alt_alt():
-    cod = tela_alt.lineEdit.text()
-    prc = tela_alt.lineEdit_2.float()
-    
-    cursor = banco.cursor()
-    comando_SQL = "UPDATE cadprod SET preçovenda="+prc+" WHERE codigo="+cod
-    cursor.execute(comando_SQL)
-    banco.commit()
-
-
-def fechar_alt():
-    tela_alt.close()
-
-def del_del():
-    codex = tela_del.lineEdit.text()
+def deletar():
+    produto_selecionado = tela_de_listagem.tableWidget.currentRow()
+    tela_de_listagem.tableWidget.removeRow(produto_selecionado)
 
     cursor = banco.cursor()
-    comando_SQL = "DELETE FROM cadprod WHERE codigo="+codex
-    cursor.execute(comando_SQL)
-    banco.commit()
+    cursor.execute("SELECT codigo FROM cadprod")
+    idsel = cursor.fetchall()
+    iddel = idsel[produto_selecionado][0]
+    cursor.execute("DELETE FROM cadprod WHERE codigo="+iddel)
 
-def volta_ini():
-    tela_listar.close()
-    tela_cadastro.show()
 
 
 
 app = QtWidgets.QApplication([])
-tela_cadastro = uic.loadUi("telacadastro.ui")
-tela_listar = uic.loadUi("telalistar.ui")
-tela_del = uic.loadUi("teladeletar.ui")
-tela_alt = uic.loadUi("telaalterar.ui")
+tela_cadastrar = uic.loadUi("telacadastro.ui")
+tela_de_listagem = uic.loadUi("telalistar.ui")
 
 
-tela_cadastro.pushButton.clicked.connect(func_cadastro)
-tela_cadastro.pushButton_2.clicked.connect(func_listar)
-tela_listar.pushButton.clicked.connect(abrir_del)
-tela_del.pushButton.clicked.connect(del_del)
-tela_listar.pushButton_3.clicked.connect(abrir_alt)
-tela_listar.pushButton_2.clicked.connect(volta_ini)
-tela_alt.pushButton.clicked.connect(fechar_alt)
-tela_alt.pushButton_2.clicked.connect(alt_alt)
 
-tela_cadastro.show()
+tela_cadastrar.pushButton.clicked.connect(cadastro)
+tela_cadastrar.pushButton_2.clicked.connect(listagem)
+
+
+tela_de_listagem.pushButton.clicked.connect(voltar_inicio)
+tela_de_listagem.pushButton_2.clicked.connect(deletar)
+
+tela_cadastrar.show()
 app.exec()
